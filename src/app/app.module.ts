@@ -17,7 +17,15 @@ import {
   MatListModule,
 } from "@angular/material";
 import { FormsModule } from "@angular/forms";
-import { NbThemeModule, NbLayoutModule, NbSearchModule } from "@nebular/theme";
+import {
+  NbThemeModule,
+  NbLayoutModule,
+  NbSearchModule,
+  NbCardModule,
+  NbSidebarModule,
+  NbChatModule,
+  NbListModule,
+} from "@nebular/theme";
 import { NbEvaIconsModule } from "@nebular/eva-icons";
 
 @NgModule({
@@ -41,6 +49,10 @@ import { NbEvaIconsModule } from "@nebular/eva-icons";
     NbLayoutModule,
     NbEvaIconsModule,
     NbSearchModule,
+    NbCardModule,
+    NbSidebarModule.forRoot(),
+    NbChatModule,
+    NbListModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

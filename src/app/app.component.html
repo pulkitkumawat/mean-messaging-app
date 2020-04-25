@@ -1,39 +1,31 @@
 <nb-layout>
   <nb-layout-header fixed>
-    <nb-search type="rotate-layout"></nb-search>
+    <span>Chat App</span>
+    <span class="spacer"></span>
+    <span><nb-search type="rotate-layout"></nb-search></span>
   </nb-layout-header>
 
+  <nb-sidebar
+    ><nb-list>
+      <nb-list-item *ngFor="let item of items">
+        {{ item }}
+      </nb-list-item>
+    </nb-list></nb-sidebar
+  >
   <nb-layout-column>
-    <mat-toolbar color="primary">
-      <span>MyChat</span>
-    </mat-toolbar>
-    <mat-grid-list cols="4" rowHeight="100px">
-      <mat-grid-tile colspan="1" rowspan="5"></mat-grid-tile>
-      <mat-grid-tile colspan="2" rowspan="1"></mat-grid-tile>
-      <mat-grid-tile colspan="1" rowspan="5"></mat-grid-tile>
-      <mat-grid-tile colspan="2" rowspan="3">
-        <mat-card class="mat-typography login">
-          <h1>Login</h1>
-          <form>
-            <mat-form-field class="full-width">
-              <input matInput placeholder="Username" name="username" />
-            </mat-form-field>
-            <br />
-            <button mat-button type="submit" mat-raised-button color="primary">
-              Login
-              <mat-spinner
-                color="accent"
-                mode="indeterminate"
-                *ngIf=""
-              ></mat-spinner>
-            </button>
-          </form>
-        </mat-card>
-      </mat-grid-tile>
-    </mat-grid-list>
-  </nb-layout-column>
+    <nb-chat title="Nebular Conversational UI" size="medium">
+      <nb-chat-message
+        *ngFor="let msg of messages"
+        [type]="'text'"
+        [message]="msg.text"
+        [reply]="msg.reply"
+        [sender]="msg.user.name"
+        [date]="msg.date"
+        [avatar]="msg.user.avatar"
+      >
+      </nb-chat-message>
 
-  <nb-layout-footer fixed>
-    <!-- Insert footer here -->
-  </nb-layout-footer>
+      <nb-chat-form (send)="sendMessage($event)" [dropFiles]="true">
+      </nb-chat-form> </nb-chat
+  ></nb-layout-column>
 </nb-layout>
