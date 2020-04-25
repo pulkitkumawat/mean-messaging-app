@@ -1,60 +1,39 @@
 <nb-layout>
-
   <nb-layout-header fixed>
-  <!-- Insert header here -->
+    <nb-search type="rotate-layout"></nb-search>
   </nb-layout-header>
 
   <nb-layout-column>
-
-    <nb-layout>
-    
-      <nb-layout-header fixed>
-      <!-- Insert header here -->
-      </nb-layout-header>
-    
-      <nb-layout-column>
-    
-        <mat-toolbar color="primary">
-          <span>MyChat</span>
-        </mat-toolbar>
-        
-        <mat-grid-list cols="4" rowHeight="100px">
-          <mat-grid-tile colspan="1" rowspan="5"></mat-grid-tile>
-          <mat-grid-tile colspan="2" rowspan="1"></mat-grid-tile>
-          <mat-grid-tile colspan="1" rowspan="5"></mat-grid-tile>
-          <mat-grid-tile colspan="2" rowspan="3">
-            <mat-card class="mat-typography login">
-              <h1>Login</h1>
-              <form>
-                <mat-form-field class="full-width">
-                  <input matInput placeholder="Username" name="username" />
-                </mat-form-field>
-                <br />
-                <button mat-button type="submit" mat-raised-button color="primary">
-                  Login
-                  <mat-spinner
-                    color="accent"
-                    mode="indeterminate"
-                    *ngIf=""
-                  ></mat-spinner>
-                </button>
-              </form>
-            </mat-card>
-          </mat-grid-tile>
-        </mat-grid-list>
-        
-      </nb-layout-column>
-    
-      <nb-layout-footer fixed>
-      <!-- Insert footer here -->
-      </nb-layout-footer>
-    
-    </nb-layout>
-    
+    <mat-toolbar color="primary">
+      <span>MyChat</span>
+    </mat-toolbar>
+    <mat-grid-list cols="4" rowHeight="100px">
+      <mat-grid-tile colspan="1" rowspan="5"></mat-grid-tile>
+      <mat-grid-tile colspan="2" rowspan="1"></mat-grid-tile>
+      <mat-grid-tile colspan="1" rowspan="5"></mat-grid-tile>
+      <mat-grid-tile colspan="2" rowspan="3">
+        <mat-card class="mat-typography login">
+          <h1>Login</h1>
+          <form>
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Username" name="username" />
+            </mat-form-field>
+            <br />
+            <button mat-button type="submit" mat-raised-button color="primary">
+              Login
+              <mat-spinner
+                color="accent"
+                mode="indeterminate"
+                *ngIf=""
+              ></mat-spinner>
+            </button>
+          </form>
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
   </nb-layout-column>
 
   <nb-layout-footer fixed>
-  <!-- Insert footer here -->
+    <!-- Insert footer here -->
   </nb-layout-footer>
-
 </nb-layout>

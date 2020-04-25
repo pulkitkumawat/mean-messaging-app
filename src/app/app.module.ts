@@ -17,8 +17,8 @@ import {
   MatListModule,
 } from "@angular/material";
 import { FormsModule } from "@angular/forms";
-import { NbThemeModule, NbLayoutModule } from '@nebular/theme';
-import { NbEvaIconsModule } from '@nebular/eva-icons';
+import { NbThemeModule, NbLayoutModule, NbSearchModule } from "@nebular/theme";
+import { NbEvaIconsModule } from "@nebular/eva-icons";
 
 @NgModule({
   declarations: [AppComponent],
@@ -37,9 +37,10 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
     MatTabsModule,
     MatIconModule,
     MatListModule,
-    NbThemeModule.forRoot({ name: 'default' }),
+    NbThemeModule.forRoot({ name: "dark" }),
     NbLayoutModule,
     NbEvaIconsModule,
+    NbSearchModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
