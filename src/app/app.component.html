@@ -1,8 +1,10 @@
 <nb-layout>
   <nb-layout-header fixed>
-    <span>Chat App</span>
-    <span class="spacer"></span>
-    <span><nb-search type="rotate-layout"></nb-search></span>
+    <mat-toolbar
+      ><span><a>Chat App</a></span>
+      <span class="spacer"></span>
+      <span><nb-search type="rotate-layout"></nb-search></span
+    ></mat-toolbar>
   </nb-layout-header>
 
   <nb-sidebar
@@ -13,7 +15,7 @@
     </nb-list></nb-sidebar
   >
   <nb-layout-column>
-    <nb-chat title="Nebular Conversational UI" size="medium">
+    <nb-chat title="Chat UI" size="medium">
       <nb-chat-message
         *ngFor="let msg of messages"
         [type]="'text'"

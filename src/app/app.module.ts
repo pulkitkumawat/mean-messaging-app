@@ -27,9 +27,11 @@ import {
   NbListModule,
 } from "@nebular/theme";
 import { NbEvaIconsModule } from "@nebular/eva-icons";
+import { HeaderComponent } from "./header/header.component";
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, HeaderComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -53,6 +55,7 @@ import { NbEvaIconsModule } from "@nebular/eva-icons";
     NbSidebarModule.forRoot(),
     NbChatModule,
     NbListModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

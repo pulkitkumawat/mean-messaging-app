@@ -1,7 +1,8 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-//const postsRoute = require("./routes/posts");
+const messagesRoute = require("./routes/messages");
+const conversationsRoute = require("./routes/conversations");
 
 app.use(express.json());
 
@@ -17,15 +18,19 @@ app.use((req, res, next) => {
   );
   next();
 });
-
+//"mongodb+srv://pulkit:8764012666@cluster0-ldmvn.mongodb.net/node-angular?retryWrites=true&w=majority",
+mongoose.set("useNewUrlParser", true);
+mongoose.set("useFindAndModify", false);
+mongoose.set("useCreateIndex", true);
 mongoose.connect(
-  "mongodb+srv://pulkit:8764012666@cluster0-ldmvn.mongodb.net/node-angular?retryWrites=true&w=majority",
+  "mongodb+srv://Admin:admin123@cluster0-tokfm.mongodb.net/test?retryWrites=true&w=majority",
   { useNewUrlParser: true, useUnifiedTopology: true },
   () => {
     console.log("Connected to db");
   }
 );
 
-//app.use("/api/posts", postsRoute);
+app.use("/api/messages", messagesRoute);
+app.use("/api/conversations", conversationsRoute);
 
 module.exports = app;
