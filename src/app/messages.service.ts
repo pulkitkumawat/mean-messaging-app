@@ -7,29 +7,7 @@ import { HttpClient } from "@angular/common/http";
 export class MessagesService {
   constructor(private http: HttpClient) {}
 
-  getPosts() {
-    return [
-      {
-        text: "Small!",
-        date: new Date(),
-        reply: false,
-        user: {
-          name: "Bot",
-          avatar: "https://i.gifer.com/no.gif",
-        },
-      },
-      {
-        text: "Message 2",
-        date: new Date(),
-        reply: false,
-        user: {
-          name: "Bot",
-          avatar: "https://i.gifer.com/no.gif",
-        },
-      },
-    ];
-  }
-
+ 
   getConversationsForUser(username: string) {
     return this.http.get<{ message: string; conversations: any }>(
       "http://localhost:3000/api/conversations/" + username
@@ -40,5 +18,13 @@ export class MessagesService {
     return this.http.get<{ messages: []; outputMessage: string }>(
       "http://localhost:3000/api/messages/" + convId
     );
+  }
+
+  postMessageByConv(sender:string,recipient:string,text:string,conversationId:string,date:string){
+     return this.http.post("http://localhost:3000/api/messages/"+conversationId,{sender:sender,recipient:recipient,text:text,date:date});
+  }
+
+  deleteConversation(conversationId:string){
+    return this.http.delete("http://localhost:3000/api/messages/"+conversationId);
   }
 }

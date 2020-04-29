@@ -7,11 +7,15 @@ import { MessagesService } from "./messages.service";
   styleUrls: ["./app.component.css"],
 })
 export class AppComponent implements OnInit {
-  loggedInUser = "Pulkit";
+  loggedInUser = "Gulshan";
   messages = [];
+  currentConversation;
+  currentRecipient;
   temp = [];
   conversationList = [];
-  constructor(private messageService: MessagesService) {}
+  conversationSelected = false;
+  constructor(private messageService: MessagesService) {
+  }
 
   ngOnInit(): void {
     this.messageService
@@ -31,24 +35,38 @@ export class AppComponent implements OnInit {
   }
 
   getMessages(conversation: { user: string; convId: string }) {
+    this.conversationSelected = true;
     console.log(conversation);
     this.messageService
       .getMessagesByConv(conversation.convId)
       .subscribe((output) => {
         this.messages = output.messages;
+        this.currentRecipient=conversation.user;
+        this.currentConversation=conversation.convId;
       });
     console.log(this.messages);
   }
 
   sendMessage(e) {
-    this.messages.push({
-      text: e.message,
-      date: new Date(),
-      reply: true,
-      user: {
-        name: "Jonh Doe",
-        avatar: "https://i.gifer.com/no.gif",
-      },
+    let today:Date=new Date() ;
+  this.messageService.postMessageByConv(this.loggedInUser,this.currentRecipient,e.message,this.currentConversation,today.toLocaleString())
+    .subscribe(res=>{
+      console.log(res);
+      this.messages.push({
+        text: e.message,
+        date:today,
+        sender: this.loggedInUser
+      });
     });
+
+  }
+
+  deleteConversation(item){
+    let curr_id=item.convId;
+    this.messageService.deleteConversation(curr_id)
+                  .subscribe((res)=>{
+                    console.log(res);
+                  });
+    
   }
 }

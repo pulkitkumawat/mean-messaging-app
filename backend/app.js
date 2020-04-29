@@ -25,7 +25,7 @@ mongoose.connect(
   "mongodb+srv://Admin:admin123@cluster0-tokfm.mongodb.net/test?retryWrites=true&w=majority",
   { useNewUrlParser: true, useUnifiedTopology: true },
   () => {
-    console.log("Connected to db");
+    console.log("Connected to db")  ;
   }
 );
 
