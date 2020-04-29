@@ -9,8 +9,11 @@
 
   <nb-sidebar
     ><nb-list>
-      <nb-list-item *ngFor="let item of items">
-        {{ item }}
+      <nb-list-item
+        *ngFor="let item of conversationList"
+        (click)="getMessages(this.item)"
+      >
+        {{ item.user }}
       </nb-list-item>
     </nb-list></nb-sidebar
   >
@@ -20,10 +23,9 @@
         *ngFor="let msg of messages"
         [type]="'text'"
         [message]="msg.text"
-        [reply]="msg.reply"
-        [sender]="msg.user.name"
+        [reply]="loggedInUser == msg.sender ? true : false"
+        [sender]="msg.sender"
         [date]="msg.date"
-        [avatar]="msg.user.avatar"
       >
       </nb-chat-message>
 
