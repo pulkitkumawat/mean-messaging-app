@@ -5,7 +5,7 @@ import { HttpClient } from "@angular/common/http";
   providedIn: "root",
 })
 export class MessagesService {
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
   getPosts() {
     return [
@@ -28,5 +28,17 @@ export class MessagesService {
         },
       },
     ];
+  }
+
+  getConversationsForUser(username: string) {
+    return this.http.get<{ message: string; conversations: any }>(
+      "http://localhost:3000/api/conversations/" + username
+    );
+  }
+
+  getMessagesByConv(convId: string) {
+    return this.http.get<{ messages: []; outputMessage: string }>(
+      "http://localhost:3000/api/messages/" + convId
+    );
   }
 }
