@@ -19,7 +19,6 @@ app.use((req, res, next) => {
   next();
 });
 //"mongodb+srv://pulkit:8764012666@cluster0-ldmvn.mongodb.net/node-angular?retryWrites=true&w=majority",
-mongoose.set("useNewUrlParser", true);
 mongoose.set("useFindAndModify", false);
 mongoose.set("useCreateIndex", true);
 mongoose.connect(

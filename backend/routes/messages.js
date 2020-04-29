@@ -6,6 +6,7 @@ const router = express.Router();
 
 router.get("", (req, res, send) => {
   Message.find().then((messages) => {
+  
     res.status(200).send({
       message: "All messages fetched",
       chat: messages,
@@ -17,6 +18,8 @@ router.post("", (req, res, next) => {
   const conversation = new Conversation({
     participants: [req.body.sender, req.body.recipient],
   });
+
+  
 
   conversation.save().then((createdConversation) => {
     const message = new Message({
