@@ -1,44 +1,67 @@
-<mat-sidenav-container class="container">
-  <mat-sidenav mode="side" opened>
-    <mat-card>
-      <mat-tab-group>
-        <mat-tab>
-          <ng-template mat-tab-label>
-            <mat-icon matListIcon>forum</mat-icon>
-          </ng-template>
-          <mat-list class="conversations">
-            ...
-          </mat-list>
-        </mat-tab>
-      </mat-tab-group>
-    </mat-card>
-  </mat-sidenav>
-  <mat-sidenav position="end" mode="side" opened>
-    <mat-card>
-      <mat-list class="members">
-        ...
-      </mat-list>
-    </mat-card>
-  </mat-sidenav>
-  <section class="empty-conversation">
-    <h1 class="mat-display-1">
-      Select a conversation from the left to start chatting
-    </h1>
-  </section>
-  <section>
-    <div class="mat-typography conversation-header">
-      ...
-    </div>
-    <mat-divider></mat-divider>
-    <mat-list dense class="conversation-history mat-typography">
-      ...
-    </mat-list>
-    <div class="conversation-input">
-      <mat-divider></mat-divider>
-      <mat-form-field class="full-width">
-        <input matInput placeholder="Start chatting..." name="text" />
-        <mat-icon matSuffix>send</mat-icon>
-      </mat-form-field>
-    </div>
-  </section>
-</mat-sidenav-container>
+<nb-layout>
+  <nb-layout-header fixed>
+    <mat-toolbar
+      ><span><a>Chat App</a></span>
+      <span class="spacer"></span>
+      <span><nb-search type="rotate-layout"></nb-search></span
+    ></mat-toolbar>
+  </nb-layout-header>
+
+  <nb-sidebar
+    ><nb-list>
+      <nb-list-item *ngFor="let item of conversationList"
+        ><span (click)="getMessages(this.item)" nbButton>{{ item.user }}</span>
+        <span class="spacer"></span
+        ><span
+          ><button
+            nbButton
+            outline
+            size="tiny"
+            status="warning"
+            shape="round"
+            (click)="open(dialog, this.item)"
+          >
+            <nb-icon icon="close"></nb-icon></button></span
+      ></nb-list-item> </nb-list
+  ></nb-sidebar>
+  <nb-layout-column>
+    <nb-chat
+      title="Chat UI"
+      size="medium"
+      *ngIf="isConversationSelected; else selectConv"
+    >
+      <nb-chat-message
+        *ngFor="let msg of messages"
+        [type]="'text'"
+        [message]="msg.text"
+        [reply]="loggedInUser == msg.sender ? true : false"
+        [sender]="msg.sender"
+        [date]="msg.date"
+      >
+      </nb-chat-message>
+
+      <nb-chat-form (send)="sendMessage($event)" [dropFiles]="true">
+      </nb-chat-form> </nb-chat
+  ></nb-layout-column>
+  <ng-template #selectConv>
+    <nb-card>Select Chat to continue..</nb-card>
+  </ng-template>
+  <ng-template #dialog let-data let-ref="dialogRef">
+    <nb-card>
+      <nb-card-header
+        >Do you really want to Delete the conversation ??</nb-card-header
+      >
+      <!-- <nb-card-body></nb-card-body> -->
+      <nb-card-footer>
+        <button nbButton (click)="ref.close()">Close</button>
+        <button
+          nbButton
+          status="danger"
+          (click)="deleteConversation(data); ref.close()"
+        >
+          Delete
+        </button>
+      </nb-card-footer>
+    </nb-card>
+  </ng-template>
+</nb-layout>

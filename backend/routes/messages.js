@@ -76,18 +76,17 @@ router.post("/:conversationId", (req, res, next) => {
   });
 });
 
-router.delete("/:conversationId",(req,res,next)=>{
-
-  Conversation.deleteMany({_id:req.params.conversationId}).then((mes)=>{
-    Message.deleteMany({conversationId:req.params.conversationId}).then((deleteMessage)=>{
-      res.status(201).send({
-        outputMessage: "Message successfully deleted",
-        deleted: deleteMessage
-        
-      });
-    });
+router.delete("/:conversationId", (req, res, next) => {
+  Conversation.deleteMany({ _id: req.params.conversationId }).then((mes) => {
+    Message.deleteMany({ conversationId: req.params.conversationId }).then(
+      (deleteMessage) => {
+        res.status(201).send({
+          outputMessage: "Message successfully deleted",
+          deleted: deleteMessage,
+        });
+      }
+    );
   });
-
-})
+});
 
 module.exports = router;
