@@ -4,4 +4,6 @@ const convetsationSchema = mongoose.Schema({
   participants: { type: Array, required: true },
 });
 
-module.exports = mongoose.model("Conversation", convetsationSchema);
+const myModel = mongoose.model("Conversation", convetsationSchema);
+//myModel.collection.dropIndex({ participants: 1 });
+module.exports = myModel;

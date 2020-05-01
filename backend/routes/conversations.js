@@ -7,7 +7,7 @@ const router = express.Router();
 router.get("", (req, res, next) => {
   Conversation.find().then((conversations) => {
     res.status(200).send({
-      message: "Conversations fetched successfully",
+      outputMessage: "Conversations fetched successfully",
       conversations: conversations,
     });
   });
@@ -18,11 +18,23 @@ router.get("/:participantName", (req, res, next) => {
   Conversation.find({ participants: req.params.participantName }).then(
     (conversations) => {
       res.status(200).send({
-        message: "Conversation fetched successfully",
+        outputMessage: "Conversation fetched successfully",
         conversations: conversations,
       });
     }
   );
+});
+
+router.post("", (req, res, next) => {
+  const conversation = new Conversation({
+    participants: [req.body.sender, req.body.recipient],
+  });
+  conversation.save().then((savedConversation) => {
+    res.status(201).send({
+      outputMessage: "Conversation Added Successfully",
+      savedConversation: savedConversation,
+    });
+  });
 });
 
 module.exports = router;

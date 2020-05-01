@@ -1,33 +1,52 @@
 <nb-layout>
   <nb-layout-header fixed>
     <mat-toolbar
-      ><span><a>Chat App</a></span>
+      ><span><a routerLink="">Chat App</a></span>
       <span class="spacer"></span>
-      <span><nb-search type="rotate-layout"></nb-search></span
-    ></mat-toolbar>
+      <nb-actions size="small">
+        <!-- <nb-action icon="search-outline"></nb-action>
+        <nb-action icon="power-outline"></nb-action>
+        <nb-action icon="person-outline"></nb-action>
+        <nb-action icon="home-outline"></nb-action> -->
+        <nb-action>
+          <nb-search type="rotate-layout"></nb-search>
+        </nb-action>
+        <nb-action
+          icon="settings-2-outline"
+          nbButton
+          [nbContextMenu]="settingContextMenuItems"
+        ></nb-action>
+      </nb-actions>
+    </mat-toolbar>
   </nb-layout-header>
 
-  <nb-sidebar
-    ><nb-list>
-      <nb-list-item *ngFor="let item of conversationList"
-        ><span (click)="getMessages(this.item)" nbButton>{{ item.user }}</span>
-        <span class="spacer"></span
-        ><span
-          ><button
-            nbButton
-            outline
-            size="tiny"
-            status="warning"
-            shape="round"
-            (click)="open(dialog, this.item)"
-          >
-            <nb-icon icon="close"></nb-icon></button></span
-      ></nb-list-item> </nb-list
+  <nb-sidebar>
+    <nb-card
+      ><nb-list>
+        <nb-list-item
+          *ngFor="let item of conversationList; let i = index"
+          [ngClass]="{ highlight: selectedIndex === i }"
+          (click)="getMessages(this.item, this.i)"
+          ><nb-user [name]="item.user" nbButton> </nb-user>
+          <span class="spacer"></span
+          ><span
+            ><button
+              nbButton
+              outline
+              size="tiny"
+              status="warning"
+              shape="round"
+              (click)="open(dialog, this.item, $event)"
+              nbTooltip="Delete Conversation !!"
+              nbTooltipStatus="primary"
+            >
+              <nb-icon icon="close"></nb-icon></button></span
+        ></nb-list-item> </nb-list></nb-card
   ></nb-sidebar>
   <nb-layout-column>
     <nb-chat
-      title="Chat UI"
-      size="medium"
+      [title]="currentRecipient"
+      scrollBottom="true"
       *ngIf="isConversationSelected; else selectConv"
     >
       <nb-chat-message
@@ -44,7 +63,7 @@
       </nb-chat-form> </nb-chat
   ></nb-layout-column>
   <ng-template #selectConv>
-    <nb-card>Select Chat to continue..</nb-card>
+    <nb-card> <h2>Select Conversation to see Chat.</h2></nb-card>
   </ng-template>
   <ng-template #dialog let-data let-ref="dialogRef">
     <nb-card>
@@ -53,13 +72,16 @@
       >
       <!-- <nb-card-body></nb-card-body> -->
       <nb-card-footer>
-        <button nbButton (click)="ref.close()">Close</button>
+        <button nbButton (click)="ref.close()">
+          <nb-icon icon="close"></nb-icon>
+        </button>
         <button
           nbButton
           status="danger"
+          id="popupDelete"
           (click)="deleteConversation(data); ref.close()"
         >
-          Delete
+          <nb-icon icon="checkmark"></nb-icon>
         </button>
       </nb-card-footer>
     </nb-card>

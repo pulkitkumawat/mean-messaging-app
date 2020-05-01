@@ -1,6 +1,6 @@
 import { Component, TemplateRef, OnInit } from "@angular/core";
 import { MessagesService } from "../messages.service";
-import { NbDialogService } from "@nebular/theme";
+import { NbDialogService, NbToastrService } from "@nebular/theme";
 
 @Component({
   selector: "app-conversation",
@@ -11,12 +11,15 @@ export class ConversationComponent implements OnInit {
   loggedInUser = "Pulkit";
   messages = [];
   currentConversationId;
+  selectedIndex;
   currentRecipient;
   conversationList = [];
   isConversationSelected = false;
+  settingContextMenuItems = [{ title: "Profile" }, { title: "Logout" }];
   constructor(
     private messageService: MessagesService,
-    private dialogService: NbDialogService
+    private dialogService: NbDialogService,
+    private toastrService: NbToastrService
   ) {}
 
   ngOnInit(): void {
@@ -36,8 +39,9 @@ export class ConversationComponent implements OnInit {
       });
   }
 
-  getMessages(conversation: { user: string; convId: string }) {
+  getMessages(conversation: { user: string; convId: string }, _index) {
     console.log("clicked");
+    this.selectedIndex = _index;
     this.isConversationSelected = true;
     console.log(conversation);
     this.messageService
@@ -88,11 +92,23 @@ export class ConversationComponent implements OnInit {
           this.conversationList.splice(index, 1);
         }
       }
+      this.showToast();
     });
   }
 
-  open(dialog: TemplateRef<any>, item) {
+  open(dialog: TemplateRef<any>, item, event) {
     console.log(item);
     this.dialogService.open(dialog, { context: item, autoFocus: false });
+    event.stopPropagation();
+  }
+  showToast() {
+    this.toastrService.show(
+      "The Conversation has been Deleted Successfully",
+      "Deleted !!",
+      {
+        preventDuplicates: true,
+        status: "success",
+      }
+    );
   }
 }

@@ -6,3 +6,17 @@ a {
   color: white;
   text-decoration: none;
 }
+
+#popupDelete {
+  margin-left: 10px;
+}
+
+nb-chat {
+  height: 33rem;
+}
+.highlight {
+  background-color: #8083f1;
+}
+h2 {
+  text-align: center;
+}
